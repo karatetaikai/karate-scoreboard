@@ -1,0 +1,16 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: black; color: white; font-family: sans-serif; overflow: hidden; }
+#timer-banner { background: #333; text-align: center; padding: 20px 0; }
+#timer { font-size: 5vw; font-weight: bold; }
+#scoreboard { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+.corner { width: 20%; display: flex; flex-direction: column; align-items: center; }
+.corner.red { background: #800; }
+.corner.blue { background: #008; }
+.section { margin: 10px 0; }
+.section .label { display: block; font-size: 1.5vw; }
+.section .value { font-size: 3vw; }
+.match-info { width: 50%; display: flex; flex-direction: column; align-items: center; }
+#match-id { font-size: 2vw; margin-bottom: 10px; }
+#first-score { font-size: 10vw; }
+#controls { position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; }
+#settings, #next-button { background: #222; color: white; border: none; padding: 10px 20px; font-size: 1vw; cursor: pointer; }
