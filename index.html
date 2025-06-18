@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>空手大会スコアボード</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="timer-banner">
+    <span id="timer">01:00</span>
+  </div>
+  <div id="scoreboard">
+    <div class="corner red" id="corner-red">
+      <div class="section"><span class="label">一本</span><span class="value" id="red-ippon">0</span></div>
+      <div class="section"><span class="label">技あり</span><span class="value" id="red-waza">0</span></div>
+      <div class="section"><span class="label">有効</span><span class="value" id="red-yuko">0</span></div>
+      <div class="section"><span class="label">PENALTY</span><span class="value" id="red-penalty">0</span></div>
+    </div>
+    <div class="match-info">
+      <div id="match-id">ID: 1-1</div>
+      <div id="first-score"><span id="red-score">0</span> - <span id="blue-score">0</span></div>
+    </div>
+    <div class="corner blue" id="corner-blue">
+      <div class="section"><span class="label">一本</span><span class="value" id="blue-ippon">0</span></div>
+      <div class="section"><span class="label">技あり</span><span class="value" id="blue-waza">0</span></div>
+      <div class="section"><span class="label">有効</span><span class="value" id="blue-yuko">0</span></div>
+      <div class="section"><span class="label">PENALTY</span><span class="value" id="blue-penalty">0</span></div>
+    </div>
+  </div>
+  <div id="controls">
+    <button id="settings">⚙️</button>
+    <button id="next-button">NEXT: 赤 山本 vs 青 白石</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
