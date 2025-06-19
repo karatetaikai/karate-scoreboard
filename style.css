@@ -24,3 +24,24 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
 .preset-btn { background:#888; color:#fff; border:none; font-size:1.5vh; padding:.5vh 1vh; margin-right:1vh; }
 .preset-btn.active { background:#fff; color:#000; }
 #next-button { background:#222; color:#fff; border:none; font-size:2vh; padding:1vh 2vh; margin-top:1vh; }
+
+/* Ensure everything stays centered and responsive on mobile */
+@media only screen and (max-width: 768px) {
+    #container {
+        width: 100vw; /* Full screen width on smaller devices */
+        height: auto; /* Allow height to grow automatically */
+    }
+    #scoreboard {
+        flex-direction: column;
+        gap: 5vh;
+    }
+    #timer-banner, #controls-top, #match-id, .section {
+        font-size: 2vh; /* Smaller font sizes for mobile */
+    }
+    #timer {
+        font-size: 10vh; /* Adjust size for readability */
+    }
+    #next-button {
+        font-size: 3vh; /* Adjust size */
+    }
+}
