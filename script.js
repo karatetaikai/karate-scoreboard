@@ -47,12 +47,10 @@ function changeScore(side,type,delta){
     if(newVal>=0 && newVal<=5) state[side][type]=newVal;
   } else if(newVal>=0){
     state[side][type]=newVal;
-    // clear firstScored if all points zero
-    if(newVal===0 && ['ippon','waza','yuko'].includes(type)){
+    if(delta<0 && state.firstScored===side){
+      // if total points zero, clear firstScored
       const total = state[side].ippon + state[side].waza + state[side].yuko;
-      if(total===0 && state.firstScored===side){
-        state.firstScored=false;
-      }
+      if(total===0) state.firstScored=false;
     }
   }
   if(!state.firstScored && delta>0 && ['ippon','waza','yuko'].includes(type)){
@@ -63,11 +61,13 @@ function changeScore(side,type,delta){
 
 // Events
 document.addEventListener('DOMContentLoaded',()=>{
+  // Timer controls
   document.getElementById('timer-start').addEventListener('click',startTimer);
   document.getElementById('timer-stop').addEventListener('click',stopTimer);
   document.getElementById('timer-plus').addEventListener('click',e=>{ totalSeconds++; updateTimer(); });
   document.getElementById('timer-minus').addEventListener('click',e=>{ if(totalSeconds>0) totalSeconds--; updateTimer(); });
 
+  // Score controls
   document.querySelectorAll('.plus-btn').forEach(btn=>{
     btn.addEventListener('click',e=>{
       const sec=e.target.closest('.section');
@@ -81,17 +81,29 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   });
 
+  // Inline clear-first
   document.getElementById('clear-first').addEventListener('click',()=>{
     state.firstScored=false; updateDisplay();
   });
 
+  // Settings modal
+  document.getElementById('settings').addEventListener('click',()=>{
+    document.getElementById('settings-modal').classList.remove('hidden');
+  });
+  document.getElementById('close-settings').addEventListener('click',()=>{
+    document.getElementById('settings-modal').classList.add('hidden');
+  });
+  document.getElementById('modal-clear-first').addEventListener('click',()=>{
+    state.firstScored=false; updateDisplay();
+  });
+
+  // Next match
   document.getElementById('next-button').addEventListener('click',()=>{
-    console.log('Submit',state);
     state={red:{ippon:0,waza:0,yuko:0,penalty:0},blue:{ippon:0,waza:0,yuko:0,penalty:0},firstScored:false};
     document.getElementById('match-id').textContent='ID: next';
-    document.getElementById('next-button').textContent='NEXT: 赤 ? vs 青 ?';
     updateDisplay(); updateTimer();
   });
 
+  // Init
   updateDisplay(); updateTimer();
 });
