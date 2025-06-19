@@ -9,10 +9,13 @@ let state = {
 // タイマー初期値（秒）
 let presetSeconds = 60;
 
-// 音声ファイルをプリロード＆アンロック用フラグ
+// AudioContext for silent mobile unlock
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let audioUnlocked = false;
+
+// 音声ファイル for 16s and 0s
 const oneHue = new Audio('./1hue.mp3');
 const twoHue = new Audio('./2hue.mp3');
-let audioUnlocked = false;
 
 // タイマー変数
 let timerInterval = null;
@@ -26,35 +29,26 @@ function updateTimer() {
   document.getElementById('timer').textContent = `${m}:${s}`;
 }
 
-// 音声アンロック（ユーザー操作後に必ず一度だけ実行）
+// 音声アンロック（ユーザー操作でAudioContextをresumeのみ）
 function unlockAudio() {
   if (audioUnlocked) return;
-  // iOS Safari compatibility: resume AudioContext if needed
-  if (window.audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  Promise.all([ oneHue.play(), twoHue.play() ])
-    .then(() => {
-      oneHue.pause();   oneHue.currentTime = 0;
-      twoHue.pause();   twoHue.currentTime = 0;
-      audioUnlocked = true;
-    })
-    .catch(err => {
-      console.warn('Audio unlock failed:', err);
-    });
+  audioCtx.resume().then(() => {
+    audioUnlocked = true;
+  }).catch(err => {
+    console.warn('AudioContext resume failed:', err);
+  });
 }
 
 // タイマー開始
 function startTimer() {
   unlockAudio();
-
   paused = false;
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (!paused && totalSeconds > 0) {
       totalSeconds--;
       updateTimer();
-      if (totalSeconds === 16) {
+      if (totalSeconds === 16 && audioUnlocked) {
         oneHue.currentTime = 0;
         oneHue.play().catch(err => console.warn('16秒音鳴らず', err));
       }
@@ -68,15 +62,36 @@ function startTimer() {
   }, 1000);
 }
 
-// タイマー停止・リセット関数略…
-// （以前の構造と同じ、上記コードをベースに残りの関数を含めてください）
+// タイマー停止
+function stopTimer() {
+  paused = true;
+  if (timerInterval) clearInterval(timerInterval);
+}
 
+// タイマーリセット
+function resetTimer() {
+  paused        = true;
+  if (timerInterval) clearInterval(timerInterval);
+  totalSeconds  = presetSeconds;
+  updateTimer();
+}
+
+// 以下、スコア更新やその他の関数は既存コードと同様です。
+// (省略) あなたの既存のスコア管理コードをここに統合してください
+
+// DOMContentLoaded でイベントを設定
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile unlock: first touch or click
   document.body.addEventListener('touchstart', unlockAudio, { once: true });
   document.body.addEventListener('click',     unlockAudio, { once: true });
 
-  // ボタンクリックでタイマー操作
+  // タイマー操作
   document.getElementById('timer-start').addEventListener('click', startTimer);
-  // ...（他のボタンイベント割り当ては同様に）
+  document.getElementById('timer-stop').addEventListener('click', stopTimer);
+  document.getElementById('timer-plus').addEventListener('click',  () => { totalSeconds++; updateTimer(); });
+  document.getElementById('timer-minus').addEventListener('click', () => { if (totalSeconds>0) totalSeconds--; updateTimer(); });
+  document.getElementById('timer-reset').addEventListener('click', resetTimer);
+
+  // 初期表示
+  updateTimer();
 });
