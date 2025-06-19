@@ -20,12 +20,5 @@ body { background: #000; color: #fff; font-family: sans-serif; display: flex; ju
 .first-btn { background: #888; border: none; width: 3vw; height: 3vw; border-radius: 50%; cursor: pointer; }
 .bar { font-size: 2vw; }
 .label-ft { font-size: 1.5vw; }
-#controls { display: flex; justify-content: flex-end; padding: 10px 20px; gap: 1vw; }
-#settings, #next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
-
-/* Settings modal */
-#settings-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
-#settings-modal.hidden { display: none; }
-#settings-content { background: #222; padding: 20px; border: 0.3vw solid #fff; text-align: center; }
-#settings-content h2 { margin-bottom: 10px; }
-.modal-btn { background: #777; color: #fff; border: none; font-size: 1.2vw; padding: 0.5vw 1vw; margin: 5px; cursor: pointer; }
+#controls { display: flex; justify-content: flex-end; padding: 10px 20px; }
+#next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
