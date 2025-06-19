@@ -33,19 +33,15 @@ function changeScore(side,type,delta){
   updateScores();
 }
 
+// First-take
 function toggleFirst(id){
   const btn = document.getElementById(id);
   const isRed = id==='first-red';
   const key = isRed?'firstRed':'firstBlue';
-  // Reset both buttons before applying the new state
-  document.getElementById('first-red').style.backgroundColor = '#888';
-  document.getElementById('first-blue').style.backgroundColor = '#888';
-  
-  // Toggle state and color of the clicked button
   state[key] = !state[key];
-  btn.style.backgroundColor = state[key] ? (isRed ? 'red' : 'blue') : '#888';
+  btn.classList.toggle('active');
+  btn.classList.toggle(isRed?'red':'blue');
 }
-
 
 // DOM ready
 document.addEventListener('DOMContentLoaded',()=>{
