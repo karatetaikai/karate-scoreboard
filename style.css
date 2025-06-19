@@ -15,13 +15,9 @@ body { background: #000; color: #fff; font-family: sans-serif; display: flex; ju
 .section .label { font-size: 1.2vw; margin-left: 1vw; }
 .value { font-size: 3vw; width: 3vw; text-align: center; }
 .match-info { width: 30vw; text-align: center; }
-#first-scorer { font-size: 2vw; color: yellow; margin-bottom: 5px; }
+#first-scorer-container { display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+#first-scorer { font-size: 2vw; color: yellow; }
+.small-btn { background: #777; color: #fff; border: none; font-size: 1.2vw; width: 2vw; height: 2vw; margin-left: 1vw; cursor: pointer; }
 #match-scores { font-size: 12vw; }
-#controls { display: flex; justify-content: flex-end; padding: 10px 20px; gap: 1vw; }
-#fullscreen-btn, #settings, #next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
-
-#settings-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
-#settings-modal.hidden { display: none; }
-#settings-content { background: #222; padding: 20px; border: 0.3vw solid #fff; text-align: center; }
-#settings-content h2 { margin-bottom: 10px; }
-#settings-content button { margin: 5px; padding: 8px 12px; font-size: 1vw; cursor: pointer; }
+#controls { display: flex; justify-content: flex-end; padding: 10px 20px; }
+#next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
