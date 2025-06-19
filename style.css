@@ -14,11 +14,12 @@ body { background: #000; color: #fff; font-family: sans-serif; display: flex; ju
 .minus-btn, .plus-btn { background: #555; color: #fff; border: none; font-size: 1.5vw; width: 3vw; height: 3vw; margin: 0 1vw; cursor: pointer; }
 .section .label { font-size: 1.2vw; margin-left: 1vw; }
 .value { font-size: 3vw; width: 3vw; text-align: center; }
-.match-info { width: 30vw; text-align: center; }
-#first-scorer-container { display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
-#first-scorer { font-size: 2vw; color: yellow; }
-.small-btn, .modal-btn { background: #777; color: #fff; border: none; font-size: 1.2vw; padding: 0.5vw 1vw; margin-left: 1vw; cursor: pointer; }
-#match-scores { font-size: 12vw; }
+.match-info { width: 30vw; text-align: center; display: flex; flex-direction: column; align-items: center; }
+#match-scores { font-size: 12vw; margin-bottom: 1vw; }
+#first-take { display: flex; align-items: center; justify-content: center; gap: 1vw; }
+.first-btn { background: #888; border: none; width: 3vw; height: 3vw; border-radius: 50%; cursor: pointer; }
+.bar { font-size: 2vw; }
+.label-ft { font-size: 1.5vw; }
 #controls { display: flex; justify-content: flex-end; padding: 10px 20px; gap: 1vw; }
 #settings, #next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
 
@@ -27,3 +28,4 @@ body { background: #000; color: #fff; font-family: sans-serif; display: flex; ju
 #settings-modal.hidden { display: none; }
 #settings-content { background: #222; padding: 20px; border: 0.3vw solid #fff; text-align: center; }
 #settings-content h2 { margin-bottom: 10px; }
+.modal-btn { background: #777; color: #fff; border: none; font-size: 1.2vw; padding: 0.5vw 1vw; margin: 5px; cursor: pointer; }
