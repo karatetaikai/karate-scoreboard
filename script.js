@@ -22,7 +22,7 @@ function startTimer() {
     if(!paused && totalSeconds > 0) {
       totalSeconds--;
       updateTimer();
-      if(totalSeconds === 15) { oneHue.play(); }
+      if(totalSeconds === 16) { oneHue.play(); }
       if(totalSeconds === 0) { twoHue.play(); paused = true; }
     }
   }, 1000);
