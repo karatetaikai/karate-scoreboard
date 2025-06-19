@@ -1,38 +1,58 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Swap display
-  document.getElementById('swap-display-btn').addEventListener('click', () => {
-    document.getElementById('scoreboard').classList.toggle('swap-display');
+  const timerEl = document.getElementById('time');
+  let total = 60, interval = null;
+  function updateTimer() {
+    const m = Math.floor(total/60), s = total%60;
+    timerEl.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  }
+  document.getElementById('start-btn').onclick = () => {
+    if (!interval) interval = setInterval(()=>{ if(total>0){ total--; if(total===16) new Audio('1hue.mp3').play(); if(total===0) new Audio('2hue.mp3').play(); updateTimer(); }},1000);
+  };
+  document.getElementById('stop-btn').onclick = () => { clearInterval(interval); interval=null; };
+  document.getElementById('add-time-btn').onclick = ()=>{ total++; updateTimer(); };
+  document.getElementById('minus-time-btn').onclick = ()=>{ if(total>0) total--; updateTimer(); };
+  document.getElementById('reset-time-btn').onclick = ()=>{ total=defaultTime; updateTimer(); };
+  const defaultTime=60;
+
+  // ctrl buttons
+  document.querySelectorAll('button.ctrl').forEach(btn=>{
+    btn.onclick = ()=> {
+      const side = btn.dataset.side, action = btn.dataset.action;
+      const el = document.getElementById(`${side}-${action.replace('-dec','')}`);
+      let val = parseInt(el.textContent,10);
+      if(action.endsWith('-dec')) val = Math.max(0, val-1);
+      else val++;
+      if(action==='penalty' && val>5) val=5;
+      el.textContent = val;
+      // clear first take if score changed to 0
+      if(val===0) document.getElementById(`${side}-take`).classList.remove('active', side);
+      updateScore();
+    };
   });
 
-  // Timer logic...
-  let preset = 60, total = preset, timerInterval, paused = true;
-  const timerEl = document.getElementById('timer');
-  function updateTimer(){timerEl.textContent = String(Math.floor(total/60)).padStart(2,'0')+':' + String(total%60).padStart(2,'0');}
-  document.getElementById('timer-start').onclick = ()=>{paused=false; clearInterval(timerInterval); timerInterval=setInterval(()=>{ if(!paused&&total>0){total--;updateTimer();} },1000)};
-  document.getElementById('timer-stop').onclick = ()=>{paused=true; clearInterval(timerInterval);};
-  document.getElementById('timer-plus').onclick = ()=>{ total++; updateTimer(); };
-  document.getElementById('timer-minus').onclick = ()=>{ if(total>0) total--; updateTimer(); };
-  document.getElementById('timer-reset').onclick = ()=>{ paused=true; clearInterval(timerInterval); total=preset; updateTimer(); };
-  updateTimer();
-
-  // Score logic
-  const state={red:{ippon:0,waza:0,yuko:0,penalty:0},blue:{ippon:0,waza:0,yuko:0,penalty:0},firstRed:false,firstBlue:false};
-  function updateScores(){
-    ['ippon','waza','yuko','penalty'].forEach(t=>{document.getElementById('red-'+t).textContent=state.red[t];document.getElementById('blue-'+t).textContent=state.blue[t];});
-    document.getElementById('red-score').textContent=state.red.ippon*3+state.red.waza*2+state.red.yuko;
-    document.getElementById('blue-score').textContent=state.blue.ippon*3+state.blue.waza*2+state.blue.yuko;
+  function updateScore(){
+    const r = ['ippon','waza','yuko','penalty'].map(k=>parseInt(document.getElementById('red-'+k).textContent)).reduce((a,b)=>a+b,0);
+    const b = ['ippon','waza','yuko','penalty'].map(k=>parseInt(document.getElementById('blue-'+k).textContent)).reduce((a,b)=>a+b,0);
+    document.getElementById('red-score').textContent = r;
+    document.getElementById('blue-score').textContent = b;
   }
-  document.querySelectorAll('.plus-btn').forEach(btn=>btn.onclick=e=>{const s=e.target.closest('.section'); state[s.dataset.side][s.dataset.type]++; updateScores();});
-  document.querySelectorAll('.minus-btn').forEach(btn=>btn.onclick=e=>{const s=e.target.closest('.section'); if(state[s.dataset.side][s.dataset.type]>0) state[s.dataset.side][s.dataset.type]--; updateScores();});
-  document.getElementById('score-reset').onclick=()=>{['ippon','waza','yuko','penalty'].forEach(t=>{state.red[t]=state.blue[t]=0;}); state.firstRed=state.firstBlue=false; updateScores(); document.getElementById('first-red').style.background='#888';document.getElementById('first-blue').style.background='#888';};
-  document.getElementById('first-red').onclick=()=>{state.firstRed=!state.firstRed; document.getElementById('first-red').style.background=state.firstRed?'red':'#888';};
-  document.getElementById('first-blue').onclick=()=>{state.firstBlue=!state.firstBlue; document.getElementById('first-blue').style.background=state.firstBlue?'blue':'#888';};
 
-  // Presets
-  document.querySelectorAll('.preset-btn').forEach(btn=>btn.onclick=()=>{preset=parseInt(btn.dataset.time);document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');total=preset;updateTimer();});
-  document.querySelector('.preset-btn[data-time="60"]').click();
+  document.getElementById('red-take').onclick = ()=> {
+    document.getElementById('red-take').classList.toggle('active'); document.getElementById('red-take').classList.toggle('red');
+  };
+  document.getElementById('blue-take').onclick = ()=> {
+    document.getElementById('blue-take').classList.toggle('active'); document.getElementById('blue-take').classList.toggle('blue');
+  };
 
-  // Next match
-  document.getElementById('next-button').onclick=()=>{document.getElementById('match-id').textContent='ID: next'; document.getElementById('swap-display-btn').click();};
-
+  document.getElementById('swap-btn').onclick = ()=>{
+    document.getElementById('container').classList.toggle('swap-display');
+    ['name','score','ippon','waza','yuko','penalty'].forEach(key=>{
+      const rid = document.getElementById('red-'+key), bid = document.getElementById('blue-'+key);
+      const tmp = rid.textContent; rid.textContent = bid.textContent; bid.textContent = tmp;
+    });
+    // swap take classes
+    const rt = document.getElementById('red-take'), bt = document.getElementById('blue-take');
+    const rActive = rt.classList.contains('active'), bActive = bt.classList.contains('active');
+    if(rActive!==bActive){ rt.classList.toggle('active'); bt.classList.toggle('active'); }
+  };
 });
