@@ -1,8 +1,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 20px 0; }
-#container { border: 0.5vw solid #fff; width: 90vw; }
-#match-id { position: relative; top: 10px; left: 10px; font-size: 1.5vw; }
-#timer-banner { background: #333; text-align: center; padding: 5px 0; position: relative; }
+body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 10px 0; }
+#container { position: relative; border: 0.5vw solid #fff; width: 90vw; }
+#match-id { position: absolute; top: 1vw; left: 1vw; font-size: 1.5vw; }
+#timer-banner { background: #333; text-align: center; padding: 3px 0; position: relative; }
 #timer { font-size: 8vw; font-weight: bold; }
 .timer-controls { position: absolute; top: 50%; right: 2vw; transform: translateY(-50%); display: flex; gap: 1vw; }
 .timer-btn { background: #444; color: #fff; border: none; font-size: 1.5vw; width: 4vw; height: 4vw; cursor: pointer; }
@@ -17,5 +17,11 @@ body { background: #000; color: #fff; font-family: sans-serif; display: flex; ju
 .match-info { width: 30vw; text-align: center; }
 #first-scorer { font-size: 2vw; color: yellow; margin-bottom: 5px; }
 #match-scores { font-size: 12vw; }
-#controls { display: flex; justify-content: space-between; padding: 10px 20px; }
-#settings, #next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
+#controls { display: flex; justify-content: flex-end; padding: 10px 20px; gap: 1vw; }
+#fullscreen-btn, #settings, #next-button { background: #222; color: #fff; border: none; padding: 8px 16px; font-size: 1vw; cursor: pointer; }
+
+#settings-modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; }
+#settings-modal.hidden { display: none; }
+#settings-content { background: #222; padding: 20px; border: 0.3vw solid #fff; text-align: center; }
+#settings-content h2 { margin-bottom: 10px; }
+#settings-content button { margin: 5px; padding: 8px 12px; font-size: 1vw; cursor: pointer; }

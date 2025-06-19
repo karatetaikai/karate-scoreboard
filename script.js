@@ -103,3 +103,27 @@ document.addEventListener('DOMContentLoaded', () => {
   updateTimer();
 });
 
+
+
+// Fullscreen toggle
+document.getElementById('fullscreen-btn').addEventListener('click', () => {
+  const el = document.getElementById('container');
+  if (!document.fullscreenElement) {
+    el.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+// Settings modal
+const modal = document.getElementById('settings-modal');
+document.getElementById('settings').addEventListener('click', () => {
+  modal.classList.remove('hidden');
+});
+document.getElementById('close-settings').addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+document.getElementById('clear-first').addEventListener('click', () => {
+  state.firstScored = false;
+  document.getElementById('first-scorer').textContent = '';
+});
