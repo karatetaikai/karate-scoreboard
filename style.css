@@ -1,53 +1,136 @@
+/* Fullscreen centered layout */
 body {
   background: #000;
   color: #fff;
   font-family: sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 #container {
-  width: 90vw;
-  border: .5vw solid #fff;
-  padding: 1vw;
-}
-#controls-top {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-#scoreboard {
+  width: 100vw;
+  height: 100vh;
+  border: 0.5vw solid #fff;
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#scoreboard.swap-display {
-  flex-direction: row-reverse;
-}
-.corner {
-  width: 30%;
-  text-align: center;
-}
-.player-name {
-  font-size: 2rem;
-  margin: 0.5rem 0;
-}
-.match-info {
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
 }
-#match-scores {
-  font-size: 1.5rem;
+/* Timer banner centered top */
+#timer-banner {
+  position: relative;
+  background: #333;
+  text-align: center;
+  width: 100%;
+  padding: 1vh 0;
 }
-button {
+#match-id {
+  position: absolute;
+  top: 1vh;
+  left: 1vw;
+  font-size: 1.5vw;
+  color: #fff;
+}
+#timer {
+  font-size: 8vw;
+  font-weight: bold;
+}
+/* Timer controls */
+.timer-controls {
+  position: absolute;
+  top: 50%;
+  right: 2vw;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 1vw;
+}
+/* Scoreboard centered */
+#scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  flex: 1;
+}
+.corner {
+  width: 25%;
+  background: #800;
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.corner.blue { background: #008; }
+.player-name { font-size: 3vw; margin-bottom: 2vw; }
+/* Sections left aligned */
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1vw 0;
+  width: 100%;
+}
+.plus-btn, .minus-btn {
+  background: #555;
+  color: #fff;
+  border: none;
+  font-size: 1.5vw;
+  width: 3vw;
+  height: 3vw;
+  cursor: pointer;
+}
+.section .value { font-size: 3vw; width: 3vw; text-align: center; margin: 0 1vw; }
+.section .label { font-size: 1.2vw; margin-left: 1vw; }
+/* Match info */
+.match-info {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+#match-scores { font-size: 12vw; margin-bottom: 2vw; }
+/* Reset and first-take */
+.reset-btn, .first-btn, .timer-btn, .top-btn, .preset-btn, .next-btn {
   background: #444;
   color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
   cursor: pointer;
+}
+.reset-btn, .top-btn, .next-btn, .preset-btn {
+  padding: 0.5vw 1vw;
+  font-size: 1vw;
+}
+.first-btn {
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  background: #888;
+}
+.bar { font-size: 2vw; }
+.label-ft { font-size: 1.5vw; }
+/* Preset times at bottom left */
+#preset-times {
+  position: absolute;
+  bottom: 2vh;
+  left: 2vw;
+  display: flex;
+  gap: 1vw;
+}
+.preset-btn {
+  padding: 0.5vw 1vw;
+  font-size: 1vw;
+}
+.preset-btn.active { background: #fff; color: #000; }
+/* Next button bottom right */
+#controls {
+  position: absolute;
+  bottom: 2vh;
+  right: 2vw;
+}
+.next-btn {
+  padding: 0.8vw 1.2vw;
+  font-size: 1vw;
 }
