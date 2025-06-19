@@ -6,25 +6,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="match-id">ID: 1-1</div>
   <div id="timer-banner">
+    <button id="time-minus" class="time-edit">-</button>
     <span id="timer">01:00</span>
+    <button id="time-plus" class="time-edit">+</button>
   </div>
   <div id="scoreboard">
     <div class="corner red" id="corner-red">
-      <div class="section"><span class="label">一本</span><span class="value" id="red-ippon">0</span></div>
-      <div class="section"><span class="label">技あり</span><span class="value" id="red-waza">0</span></div>
-      <div class="section"><span class="label">有効</span><span class="value" id="red-yuko">0</span></div>
-      <div class="section"><span class="label">PENALTY</span><span class="value" id="red-penalty">0</span></div>
+      <div class="section ippon"><span class="label">一本</span><span class="value" id="red-ippon">0</span></div>
+      <div class="section waza"><span class="label">技あり</span><span class="value" id="red-waza">0</span></div>
+      <div class="section yuko"><span class="label">有効</span><span class="value" id="red-yuko">0</span></div>
+      <div class="section penalty"><span class="label">PENALTY</span><span class="value" id="red-penalty">0</span></div>
     </div>
     <div class="match-info">
-      <div id="match-id">ID: 1-1</div>
-      <div id="first-score"><span id="red-score">0</span> - <span id="blue-score">0</span></div>
+      <div id="first-scorer"></div>
+      <div id="match-scores">
+        <div class="player red"><div id="red-name">山本</div><div id="red-score">0</div></div>
+        <div class="vs">-</div>
+        <div class="player blue"><div id="blue-name">白石</div><div id="blue-score">0</div></div>
+      </div>
     </div>
     <div class="corner blue" id="corner-blue">
-      <div class="section"><span class="label">一本</span><span class="value" id="blue-ippon">0</span></div>
-      <div class="section"><span class="label">技あり</span><span class="value" id="blue-waza">0</span></div>
-      <div class="section"><span class="label">有効</span><span class="value" id="blue-yuko">0</span></div>
-      <div class="section"><span class="label">PENALTY</span><span class="value" id="blue-penalty">0</span></div>
+      <div class="section ippon"><span class="label">一本</span><span class="value" id="blue-ippon">0</span></div>
+      <div class="section waza"><span class="label">技あり</span><span class="value" id="blue-waza">0</span></div>
+      <div class="section yuko"><span class="label">有効</span><span class="value" id="blue-yuko">0</span></div>
+      <div class="section penalty"><span class="label">PENALTY</span><span class="value" id="blue-penalty">0</span></div>
     </div>
   </div>
   <div id="controls">

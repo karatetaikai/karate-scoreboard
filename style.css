@@ -1,16 +1,24 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: black; color: white; font-family: sans-serif; overflow: hidden; }
-#timer-banner { background: #333; text-align: center; padding: 20px 0; }
-#timer { font-size: 5vw; font-weight: bold; }
+body { background: black; color: white; font-family: sans-serif; overflow: hidden; position: relative; }
+#match-id { position: absolute; top: 10px; left: 10px; font-size: 1.5vw; color: white; }
+#timer-banner { background: #333; text-align: center; padding: 10px 0; position: relative; }
+#timer { font-size: 10vw; font-weight: bold; }
+.time-edit { display: none; position: absolute; top: 50%; transform: translateY(-50%); background: #444; color: white; border: none; font-size: 5vw; width: 8vw; height: 8vw; border-radius: 50%; cursor: pointer; }
+#time-minus { left: 5vw; }
+#time-plus { right: 5vw; }
 #scoreboard { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
 .corner { width: 20%; display: flex; flex-direction: column; align-items: center; }
 .corner.red { background: #800; }
 .corner.blue { background: #008; }
-.section { margin: 10px 0; }
+.section { display: flex; flex-direction: column; align-items: center; margin: 10px 0; cursor: pointer; }
 .section .label { display: block; font-size: 1.5vw; }
 .section .value { font-size: 3vw; }
 .match-info { width: 50%; display: flex; flex-direction: column; align-items: center; }
-#match-id { font-size: 2vw; margin-bottom: 10px; }
-#first-score { font-size: 10vw; }
+#first-scorer { font-size: 2vw; color: yellow; margin-bottom: 5px; }
+#match-scores { display: flex; align-items: center; justify-content: center; }
+.player { display: flex; flex-direction: column; align-items: center; width: 40vw; }
+#red-name, #blue-name { font-size: 4vw; margin-bottom: 10px; }
+#red-score, #blue-score { font-size: 10vw; }
+.vs { font-size: 8vw; margin: 0 2vw; }
 #controls { position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; }
 #settings, #next-button { background: #222; color: white; border: none; padding: 10px 20px; font-size: 1vw; cursor: pointer; }
