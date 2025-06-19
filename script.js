@@ -1,12 +1,15 @@
 // State
 let state = { red:{ippon:0,waza:0,yuko:0,penalty:0}, blue:{ippon:0,waza:0,yuko:0,penalty:0}, firstRed:false, firstBlue:false };
+let presetSeconds = 60;
 
 // Preload audio
 const oneHue = new Audio('./1hue.mp3');
 const twoHue = new Audio('./2hue.mp3');
 
+// Timer variables
+let timerInterval = null, paused = true, totalSeconds = presetSeconds;
+
 // Timer functions
-let timerInterval=null, paused=true, totalSeconds=60;
 function updateTimer() {
   const m = String(Math.floor(totalSeconds/60)).padStart(2,'0');
   const s = String(totalSeconds%60).padStart(2,'0');
@@ -16,7 +19,7 @@ function startTimer() {
   paused = false;
   if(timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(() => {
-    if(!paused && totalSeconds>0) {
+    if(!paused && totalSeconds > 0) {
       totalSeconds--;
       updateTimer();
       if(totalSeconds === 15) { oneHue.play(); }
@@ -27,6 +30,12 @@ function startTimer() {
 function stopTimer() {
   paused = true;
   if(timerInterval) clearInterval(timerInterval);
+}
+function resetTimer() {
+  paused = true;
+  if(timerInterval) clearInterval(timerInterval);
+  totalSeconds = presetSeconds;
+  updateTimer();
 }
 
 // Score functions
@@ -47,6 +56,12 @@ function changeScore(side,type,delta) {
   }
   updateScores();
 }
+function resetScores() {
+  state = { red:{ippon:0,waza:0,yuko:0,penalty:0}, blue:{ippon:0,waza:0,yuko:0,penalty:0}, firstRed:false, firstBlue:false };
+  updateScores();
+  document.getElementById('first-red').style.backgroundColor = '#888';
+  document.getElementById('first-blue').style.backgroundColor = '#888';
+}
 
 // First-take toggles
 function toggleFirst(btnId) {
@@ -57,38 +72,52 @@ function toggleFirst(btnId) {
   btn.style.backgroundColor = state[key] ? side : '#888';
 }
 
+// Preset time selection
+function selectPreset(btn) {
+  presetSeconds = parseInt(btn.dataset.time);
+  // update active styles
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  resetTimer();
+}
+
 // Events
 document.addEventListener('DOMContentLoaded', () => {
+  // Timer controls
   document.getElementById('timer-start').addEventListener('click', startTimer);
   document.getElementById('timer-stop').addEventListener('click', stopTimer);
   document.getElementById('timer-plus').addEventListener('click', () => { totalSeconds++; updateTimer(); });
   document.getElementById('timer-minus').addEventListener('click', () => { if(totalSeconds>0) totalSeconds--; updateTimer(); });
+  document.getElementById('timer-reset').addEventListener('click', resetTimer);
 
-  document.querySelectorAll('.plus-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const sec = e.target.closest('.section');
-      changeScore(sec.dataset.side, sec.dataset.type, 1);
-    });
-  });
-  document.querySelectorAll('.minus-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      const sec = e.target.closest('.section');
-      changeScore(sec.dataset.side, sec.dataset.type, -1);
-    });
-  });
+  // Score controls
+  document.querySelectorAll('.plus-btn').forEach(btn => btn.addEventListener('click', e => {
+    const sec = e.target.closest('.section');
+    changeScore(sec.dataset.side, sec.dataset.type, 1);
+  }));
+  document.querySelectorAll('.minus-btn').forEach(btn => btn.addEventListener('click', e => {
+    const sec = e.target.closest('.section');
+    changeScore(sec.dataset.side, sec.dataset.type, -1);
+  }));
+  document.getElementById('score-reset').addEventListener('click', resetScores);
 
+  // First-take toggles
   document.getElementById('first-red').addEventListener('click', () => toggleFirst('first-red'));
   document.getElementById('first-blue').addEventListener('click', () => toggleFirst('first-blue'));
 
+  // Preset buttons
+  document.querySelectorAll('.preset-btn').forEach(btn => btn.addEventListener('click', () => selectPreset(btn)));
+  // Set default active
+  selectPreset(document.querySelector('.preset-btn[data-time="60"]'));
+
+  // Next match
   document.getElementById('next-button').addEventListener('click', () => {
-    state = { red:{ippon:0,waza:0,yuko:0,penalty:0}, blue:{ippon:0,waza:0,yuko:0,penalty:0}, firstRed:false, firstBlue:false };
-    updateScores();
-    updateTimer();
-    document.getElementById('first-red').style.backgroundColor = '#888';
-    document.getElementById('first-blue').style.backgroundColor = '#888';
+    resetScores();
+    resetTimer();
     document.getElementById('match-id').textContent = 'ID: next';
   });
 
-  updateTimer();
-  updateScores();
+  // Init display
+  resetScores();
+  resetTimer();
 });
