@@ -1,97 +1,106 @@
-// State（点数・先取状態）
-let state = {
-  red:   { ippon:0, waza:0, yuko:0, penalty:0 },
-  blue:  { ippon:0, waza:0, yuko:0, penalty:0 },
-  firstRed:  false,
-  firstBlue: false
-};
-
-// タイマー初期値（秒）
-let presetSeconds = 60;
-
 // AudioContext for silent mobile unlock
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let audioUnlocked = false;
 
-// 音声ファイル for 16s and 0s
-const oneHue = new Audio('./1hue.mp3');
-const twoHue = new Audio('./2hue.mp3');
+// Audio for beeps
+const beep16 = new Audio('./1hue.mp3');
+const beep0  = new Audio('./2hue.mp3');
 
-// タイマー変数
+// Timer initial settings
+let preset = 60;
+let remaining = preset;
 let timerInterval = null;
-let paused        = true;
-let totalSeconds  = presetSeconds;
 
-// タイマー表示を更新
+// Update timer display
 function updateTimer() {
-  const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-  const s = String(totalSeconds % 60).padStart(2, '0');
+  const m = String(Math.floor(remaining/60)).padStart(2,'0');
+  const s = String(remaining%60).padStart(2,'0');
   document.getElementById('timer').textContent = `${m}:${s}`;
 }
 
-// 音声アンロック（ユーザー操作でAudioContextをresumeのみ）
+// Unlock audio on first interaction
 function unlockAudio() {
-  if (audioUnlocked) return;
-  audioCtx.resume().then(() => {
-    audioUnlocked = true;
-  }).catch(err => {
-    console.warn('AudioContext resume failed:', err);
-  });
+  if (!audioUnlocked) {
+    audioCtx.resume().then(() => { audioUnlocked = true; })
+      .catch(e => console.warn('AudioContext resume failed', e));
+  }
 }
 
-// タイマー開始
+// Start timer
 function startTimer() {
   unlockAudio();
-  paused = false;
-  if (timerInterval) clearInterval(timerInterval);
+  if (timerInterval) return;
   timerInterval = setInterval(() => {
-    if (!paused && totalSeconds > 0) {
-      totalSeconds--;
+    if (remaining > 0) {
+      remaining--;
       updateTimer();
-      if (totalSeconds === 16 && audioUnlocked) {
-        oneHue.currentTime = 0;
-        oneHue.play().catch(err => console.warn('16秒音鳴らず', err));
+      if (remaining === 16 && audioUnlocked) {
+        beep16.currentTime = 0; beep16.play().catch(()=>{});
       }
-      if (totalSeconds === 0) {
-        twoHue.currentTime = 0;
-        twoHue.play().catch(err => console.warn('0秒音鳴らず', err));
-        paused = true;
+      if (remaining === 0 && audioUnlocked) {
+        beep0.currentTime = 0; beep0.play().catch(()=>{});
         clearInterval(timerInterval);
+        timerInterval = null;
       }
     }
   }, 1000);
 }
 
-// タイマー停止
+// Stop timer
 function stopTimer() {
-  paused = true;
-  if (timerInterval) clearInterval(timerInterval);
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 }
 
-// タイマーリセット
+// Reset timer
 function resetTimer() {
-  paused        = true;
-  if (timerInterval) clearInterval(timerInterval);
-  totalSeconds  = presetSeconds;
+  stopTimer();
+  remaining = preset;
   updateTimer();
 }
 
-// 以下、スコア更新やその他の関数は既存コードと同様です。
-// (省略) あなたの既存のスコア管理コードをここに統合してください
+// Add one second
+function plusSecond() {
+  remaining++;
+  updateTimer();
+}
 
-// DOMContentLoaded でイベントを設定
+// Subtract one second
+function minusSecond() {
+  if (remaining > 0) remaining--;
+  updateTimer();
+}
+
+// Handle preset buttons
+function selectPreset(btn) {
+  preset = parseInt(btn.dataset.time, 10);
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  resetTimer();
+}
+
+// Initialize event listeners on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile unlock: first touch or click
+  // Mobile unlock on touch or click
   document.body.addEventListener('touchstart', unlockAudio, { once: true });
-  document.body.addEventListener('click',     unlockAudio, { once: true });
+  document.body.addEventListener('click', unlockAudio, { once: true });
 
-  // タイマー操作
+  // Timer controls
   document.getElementById('timer-start').addEventListener('click', startTimer);
   document.getElementById('timer-stop').addEventListener('click', stopTimer);
-  document.getElementById('timer-plus').addEventListener('click',  () => { totalSeconds++; updateTimer(); });
-  document.getElementById('timer-minus').addEventListener('click', () => { if (totalSeconds>0) totalSeconds--; updateTimer(); });
   document.getElementById('timer-reset').addEventListener('click', resetTimer);
+  document.getElementById('timer-plus').addEventListener('click', plusSecond);
+  document.getElementById('timer-minus').addEventListener('click', minusSecond);
 
-  // 初期表示
+  // Preset time buttons
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => selectPreset(btn));
+  });
+  // Default preset
+  selectPreset(document.querySelector('.preset-btn[data-time="60"]'));
+
+  // Initial display
   updateTimer();
 });
