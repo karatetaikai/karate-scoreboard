@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('reset-time-btn').onclick = ()=>{ total=defaultTime; updateTimer(); };
   const defaultTime=60;
 
-  // ctrl buttons
   document.querySelectorAll('button.ctrl').forEach(btn=>{
     btn.onclick = ()=> {
       const side = btn.dataset.side, action = btn.dataset.action;
@@ -24,15 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
       else val++;
       if(action==='penalty' && val>5) val=5;
       el.textContent = val;
-      // clear first take if score changed to 0
-      if(val===0) document.getElementById(`${side}-take`).classList.remove('active', side);
       updateScore();
+      if(val===0) document.getElementById(`${side}-take`).classList.remove('active', side);
     };
   });
 
   function updateScore(){
-    const r = ['ippon','waza','yuko','penalty'].map(k=>parseInt(document.getElementById('red-'+k).textContent)).reduce((a,b)=>a+b,0);
-    const b = ['ippon','waza','yuko','penalty'].map(k=>parseInt(document.getElementById('blue-'+k).textContent)).reduce((a,b)=>a+b,0);
+    const r3 = parseInt(document.getElementById('red-ippon').textContent) * 3;
+    const r2 = parseInt(document.getElementById('red-waza').textContent) * 2;
+    const r1 = parseInt(document.getElementById('red-yuko').textContent) * 1;
+    const b3 = parseInt(document.getElementById('blue-ippon').textContent) * 3;
+    const b2 = parseInt(document.getElementById('blue-waza').textContent) * 2;
+    const b1 = parseInt(document.getElementById('blue-yuko').textContent) * 1;
+    const r = r3 + r2 + r1;
+    const b = b3 + b2 + b1;
     document.getElementById('red-score').textContent = r;
     document.getElementById('blue-score').textContent = b;
   }
@@ -50,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const rid = document.getElementById('red-'+key), bid = document.getElementById('blue-'+key);
       const tmp = rid.textContent; rid.textContent = bid.textContent; bid.textContent = tmp;
     });
-    // swap take classes
     const rt = document.getElementById('red-take'), bt = document.getElementById('blue-take');
     const rActive = rt.classList.contains('active'), bActive = bt.classList.contains('active');
     if(rActive!==bActive){ rt.classList.toggle('active'); bt.classList.toggle('active'); }
