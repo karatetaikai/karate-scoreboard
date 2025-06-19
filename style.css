@@ -95,3 +95,7 @@ body {
 #scoreboard.swap-display {
   flex-direction: row-reverse;
 }
+
+#scoreboard.swap-display #first-take {
+  flex-direction: row-reverse;
+}
