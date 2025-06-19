@@ -2,13 +2,13 @@
 body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; position: relative;}
 #match-id { position: absolute; top: 10px; left: 10px; font-size: 1.5vw; }
 #timer-banner { background: #333; text-align: center; padding: 10px; position: relative;}
-#timer { font-size: 20vw; font-weight: bold; }
-#timer-stop { position: absolute; top:10px; right:10px; padding:5px 10px; font-size:1.5vw; }
+#timer { font-size: 12vw; font-weight: bold; margin: 0 2vw; }
+.timer-btn { background:#444; color:#fff; border:none; font-size:1.5vw; margin:0 0.5vw; padding:5px 10px; cursor:pointer;}
 #scoreboard { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px;}
 .corner { width: 20vw; background: #800; padding: 10px; display: flex; flex-direction: column; align-items: center;}
 .corner.blue { background: #008; }
 .player-name { font-size: 3vw; margin-bottom: 10px;}
-.section { display: flex; align-items: center; justify-content: center; margin: 5px 0; }
+.section { display: flex; align-items: center; justify-content: center; margin: 5px 0; min-height: 5vw;}
 .minus-btn, .plus-btn { background:#555; color:#fff; border:none; font-size:2vw; width:3vw; height:3vw; margin:0 1vw; cursor:pointer;}
 .section .label { font-size:1.5vw; margin-left:1vw;}
 .value { font-size:4vw; width:4vw; text-align:center;}
