@@ -45,7 +45,7 @@ body {
 }
 .corner.red { background: #800; }
 .corner.blue { background: #008; }
-.player-name { font-size: 3vh; margin-bottom: 2vh; }
+.player-name { font-size: 4vh; margin-bottom: 2vh; }
 .section {
   display: flex; align-items: center; margin: 1vh 0;
 }
@@ -87,9 +87,11 @@ body {
   background: #222; color: #fff; border: none;
   font-size: 2vh; padding: 1vh 2vh; cursor: pointer;
 }
+
+
+
+
+/* Swap display: just reverse order */
 #scoreboard.swap-display {
-  transform: translateX(-50%) rotateY(180deg);
-}
-#scoreboard.swap-display .corner {
-  transform: rotateY(180deg);
+  flex-direction: row-reverse;
 }
