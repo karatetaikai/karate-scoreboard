@@ -36,13 +36,13 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
         gap: 5vh;
     }
     #timer-banner, #controls-top, #match-id, .section {
-        font-size: 2vh; /* Smaller font sizes for mobile */
+        font-size: 3vh; /* Smaller font sizes for mobile */
     }
     #timer {
-        font-size: 10vh; /* Adjust size for readability */
+        font-size: 15vh; /* Adjust size for readability */
     }
     #next-button {
-        font-size: 3vh; /* Adjust size */
+        font-size: 4.5vh; /* Adjust size */
     }
 }
 
@@ -61,12 +61,12 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
         text-align: center; /* Center the player names */
     }
     #timer-banner, #controls-top, #match-id, .section {
-        font-size: 2vh; /* Smaller font sizes for mobile */
+        font-size: 3vh; /* Smaller font sizes for mobile */
     }
     #timer {
-        font-size: 10vh; /* Adjust size for readability */
+        font-size: 15vh; /* Adjust size for readability */
     }
     #next-button {
-        font-size: 3vh; /* Adjust size */
+        font-size: 4.5vh; /* Adjust size */
     }
 }
