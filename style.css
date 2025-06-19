@@ -65,7 +65,8 @@ body {
 }
 #first-take {
   display: flex; align-items: center; gap: 2vh;
-}
+
+  flex-direction: row;}
 .first-btn {
   width: 6vh; height: 6vh; border-radius: 50%; background: #888;
   border: none; cursor: pointer;
@@ -96,6 +97,8 @@ body {
   flex-direction: row-reverse;
 }
 
+
 #scoreboard.swap-display #first-take {
-  flex-direction: row-reverse;
+  flex-direction: row-reverse !important;
 }
+
