@@ -9,18 +9,16 @@ body {
     color: #fff;
     font-family: sans-serif;
     display: flex;
-    justify-content: center; /* ★変更点1: 水平方向の中央揃え */
-    align-items: center;   /* ★追加点2: 垂直方向の中央揃え */
-    min-height: 100vh;     /* ★追加点2: bodyの最小高さをビューポートの高さにする */
+    justify-content: center; /* 水平方向の中央揃え */
+    align-items: center;   /* 垂直方向の中央揃え */
+    min-height: 100vh;     /* bodyの最小高さをビューポートの高さにする */
 }
 
 #container {
     position: relative;
     border: 0.5vw solid #fff;
     width: 90vw;
-    /* ★変更点3: この行を削除または修正し、水平中央揃えを優先 */
-    /* margin: 1vw auto;  <- 以前の提案で追加されたものですが、下の行と重複しています */
-    margin: 1vw auto; /* 上下1vw、左右autoで水平中央寄せ。bodyのjustify-content:centerがあるため、このautoは厳密には不要ですが、指定としては正しいです。 */
+    margin: 1vw auto; /* 上下1vw、左右autoで水平中央寄せ */
 }
 
 #timer-banner {
@@ -86,6 +84,7 @@ body {
 .player-name {
     font-size: 3vw;
     margin-bottom: 2vw;
+    outline: none; /* ここを追加しました */
 }
 
 .section {
