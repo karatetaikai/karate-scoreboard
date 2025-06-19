@@ -46,7 +46,16 @@ body {
   gap: 1vw;
 }
 /* Scoreboard centered */
+
 #scoreboard {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0 auto;
+  gap: 10vw;  /* コーナー間のスペース */
+}
+
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -133,4 +142,8 @@ body {
 .next-btn {
   padding: 0.8vw 1.2vw;
   font-size: 1vw;
+}
+
+#scoreboard.swap-display {
+  flex-direction: row-reverse;
 }
