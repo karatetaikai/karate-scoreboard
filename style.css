@@ -5,7 +5,7 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
 #match-id { position:absolute; top:1vh; left:1vw; font-size:2vh; }
 #timer { font-size:24vh; }
 .timer-controls { position:absolute; top:50%; right:2vw; transform:translateY(-50%); display:flex; gap:1vw; }
-.timer-btn { font-size: 6vh; width: 9vh; height: 9vh; background:#444; color:#fff; border:none; font-size:2vh; width:6vh; height:6vh; }
+.timer-btn { font-size: 5vh; width: 10vh; height: 9vh; background:#444; color:#fff; border:none; font-size:2vh; width:6vh; height:6vh; }
 #scoreboard { display:flex; justify-content:space-between; align-items:flex-start; margin-top:1vh; gap:5vw; }
 .corner { width:30%; background:#800; padding:1vw; }
 .corner.blue { background:#008; }
