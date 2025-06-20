@@ -26,47 +26,46 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
 #next-button { background:#222; color:#fff; border:none; font-size:2vh; padding:1vh 2vh; margin-top:1vh; }
 
 /* Ensure everything stays centered and responsive on mobile */
+/* 縦向き (画面が縦長のとき) */
 @media only screen and (max-width: 768px) {
     #container {
-        width: 100vw; /* Full screen width on smaller devices */
-        height: auto; /* Allow height to grow automatically */
+        width: 90vw; /* 横幅に合わせる */
+        height: auto; /* 高さは自動調整 */
+        margin: 0 auto; /* コンテナを中央に配置 */
     }
-    #scoreboard {
-        flex-direction: column;
-        gap: 5vh;
-    }
-    #timer-banner, #controls-top, #match-id, .section {
-        font-size: 9vh; /* Smaller font sizes for mobile */
-    }
+
     #timer {
-        font-size: 30vh; /* Adjust size for readability */
+        font-size: 10vh; /* タイマーの文字サイズを調整 */
     }
-    #next-button {
-        font-size: 9vh; /* Adjust size */
+
+    #match-scores {
+        font-size: 10vh; /* 得点の文字サイズを調整 */
+    }
+
+    #scoreboard {
+        flex-direction: column; /* 縦向きでは縦並び */
+        gap: 5vh; /* ギャップ調整 */
     }
 }
 
-/* Ensure everything stays centered and responsive on 9:16 aspect ratio */
-@media only screen and (max-width: 768px) {
+/* 横向き (画面が横長のとき) */
+@media only screen and (max-width: 768px) and (orientation: landscape) {
     #container {
-        width: 56.25vw; /* 9:16 aspect ratio */
-        height: 100vh;
-        margin: 0 auto; /* Center the container */
+        width: 90vw; /* 横向きの場合、横幅を広げる */
+        height: auto; /* 高さを自動調整 */
+        margin: 0 auto; /* コンテナを中央に配置 */
     }
-    #scoreboard {
-        flex-direction: column;
-        gap: 5vh;
-    }
-    #red-name, #blue-name {
-        text-align: center; /* Center the player names */
-    }
-    #timer-banner, #controls-top, #match-id, .section {
-        font-size: 9vh; /* Smaller font sizes for mobile */
-    }
+
     #timer {
-        font-size: 30vh; /* Adjust size for readability */
+        font-size: 20vh; /* タイマーの文字サイズを調整 */
     }
-    #next-button {
-        font-size: 9vh; /* Adjust size */
+
+    #match-scores {
+        font-size: 20vh; /* 得点の文字サイズを調整 */
+    }
+
+    #scoreboard {
+        flex-direction: row; /* 横向きでは横並び */
+        gap: 2vw; /* ギャップ調整 */
     }
 }
