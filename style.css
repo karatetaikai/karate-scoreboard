@@ -15,7 +15,7 @@ body { background:#000; color:#fff; font-family:sans-serif; display:flex; justif
 .value { width:4vh; text-align:center; }
 .label { font-size:2vh; }
 .match-info { display:flex; flex-direction:column; align-items:center; }
-#match-scores { font-size:18vh; }
+#match-scores { font-size:16vh; }
 .reset-btn { background:#444; color:#fff; border:none; font-size:2vh; padding:1vh 2vh; margin:1vh 0; }
 #first-take { display:flex; align-items:center; gap:2vh; }
 .first-btn { width:6vh; height:6vh; border-radius:50%; background:#888; border:none; }
